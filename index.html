@@ -3,41 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOUIS IX</title>
+<title>LouisIX</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-scroll-behavior:smooth;
 }
-<div id="cartBtn">
-🛒
-</div>
 
-<style>
-#cartBtn{
-position:fixed;
-bottom:25px;
-right:25px;
-width:60px;
-height:60px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(15px);
-border:1px solid rgba(255,255,255,.15);
-cursor:pointer;
-box-shadow:0 0 20px rgba(0,217,255,.3);
-z-index:9999;
-}
-</style>
 body{
 font-family:'Space Grotesk',sans-serif;
 background:#050505;
@@ -51,31 +27,28 @@ position:fixed;
 width:100%;
 height:100%;
 background:
-radial-gradient(circle at 20% 20%,rgba(0,217,255,.18),transparent 40%),
-radial-gradient(circle at 80% 30%,rgba(138,43,226,.18),transparent 40%);
+radial-gradient(circle at 20% 20%,rgba(0,217,255,.15),transparent 40%),
+radial-gradient(circle at 80% 80%,rgba(138,43,226,.15),transparent 40%);
 z-index:-1;
 }
 
 nav{
 position:fixed;
+top:0;
 width:100%;
-padding:20px 8%;
+padding:18px 8%;
 display:flex;
 justify-content:space-between;
 align-items:center;
 backdrop-filter:blur(15px);
-background:rgba(255,255,255,.05);
+background:rgba(0,0,0,.4);
 border-bottom:1px solid rgba(255,255,255,.08);
 z-index:999;
 }
 
-
-font-family:'Cinzel',serif;
-font-size:30px;
-letter-spacing:8px;
-background:linear-gradient(90deg,#fff,#bfbfbf,#fff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+.logo img{
+height:70px;
+width:auto;
 }
 
 nav ul{
@@ -99,16 +72,28 @@ justify-content:center;
 align-items:center;
 text-align:center;
 padding:20px;
+background:url('https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=1200') center/cover;
+position:relative;
+}
+
+.hero::after{
+content:'';
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.45);
+}
+
+.hero-content{
+position:relative;
+z-index:2;
 }
 
 .hero h1{
 font-family:'Cinzel',serif;
-font-size:70px;
-letter-spacing:12px;
-background:linear-gradient(90deg,#ffffff,#c0c0c0,#ffffff);
+font-size:90px;
+background:linear-gradient(90deg,#fff,#d9d9d9,#fff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-text-shadow:0 0 30px rgba(255,255,255,.25);
 }
 
 .hero p{
@@ -119,15 +104,15 @@ color:#d7d7d7;
 }
 
 .btn{
+display:inline-block;
 margin-top:40px;
 padding:15px 40px;
-border:1px solid rgba(255,255,255,.25);
-background:rgba(255,255,255,.06);
-backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,.3);
 color:white;
 text-decoration:none;
-letter-spacing:3px;
-transition:.4s;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(10px);
+transition:.3s;
 }
 
 .btn:hover{
@@ -155,15 +140,8 @@ gap:25px;
 .card{
 background:rgba(255,255,255,.05);
 border:1px solid rgba(255,255,255,.08);
-backdrop-filter:blur(15px);
 border-radius:20px;
 overflow:hidden;
-transition:.4s;
-}
-
-.card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 30px rgba(0,217,255,.25);
 }
 
 .card img{
@@ -174,15 +152,6 @@ object-fit:cover;
 
 .card h3{
 padding:20px;
-font-size:20px;
-}
-
-.about{
-text-align:center;
-max-width:800px;
-margin:auto;
-line-height:1.8;
-color:#cfcfcf;
 }
 
 footer{
@@ -194,17 +163,15 @@ color:#aaa;
 
 @media(max-width:768px){
 .hero h1{
-font-size:45px;
+font-size:50px;
+}
+.logo img{
+height:55px;
 }
 nav ul{
 gap:15px;
 font-size:12px;
 }
-}
-  .logo img{
-  height:60px;
-  width:auto;
-  display:block;
 }
 </style>
 </head>
@@ -213,9 +180,9 @@ font-size:12px;
 
 <nav>
 <div class="logo">
-    <img src="file_0000000050b8722f82fa33b1a8f67752.png"
-      alt="LouisIX Logo">
+<img src="file_0000000050b8722f82fa33b1a8f67752.png" alt="LouisIX">
 </div>
+
 <ul>
 <li><a href="#">HOME</a></li>
 <li><a href="#collection">COLLECTION</a></li>
@@ -224,46 +191,47 @@ font-size:12px;
 </nav>
 
 <section class="hero">
-<h1>LOUIS IX</h1>
-<p>Y2K CHROME LUXURY</p>
-<a href="#collection" class="btn">EXPLORE</a>
+<div class="hero-content">
+<h1>LOUISIX</h1>
+<p>CRAFTED FOR THE MODERN ELITE</p>
+<a href="#collection" class="btn">EXPLORE COLLECTION</a>
+</div>
 </section>
 
 <section class="section" id="collection">
-<h2 class="section-title">FEATURED COLLECTION</h2>
+<h2 class="section-title">COLLECTION</h2>
 
 <div class="grid">
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b">
-<h3>Chrome Hoodie</h3>
+<img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800">
+<h3>Chrome Tee</h3>
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c">
-<h3>Future Jacket</h3>
+<img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800">
+<h3>Y2K Hoodie</h3>
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f">
-<h3>Y2K Streetwear</h3>
+<img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800">
+<h3>Elite Jacket</h3>
 </div>
 
 </div>
 </section>
 
 <section class="section" id="about">
-<h2 class="section-title">ABOUT LOUIS IX</h2>
+<h2 class="section-title">ABOUT</h2>
 
-<div class="about">
-LOUIS IX is a futuristic luxury fashion label inspired by Y2K aesthetics,
-chrome textures, and modern street culture. Designed for creators,
-dreamers, and trendsetters.
-</div>
+<p style="max-width:800px;margin:auto;text-align:center;line-height:1.8;color:#ccc;">
+LouisIX adalah brand fashion dengan sentuhan Y2K Chrome Luxury,
+menggabungkan estetika futuristik, streetwear, dan premium lifestyle.
+</p>
 </section>
 
 <footer>
-© 2026 LOUIS IX — ALL RIGHTS RESERVED
+© 2026 LOUISIX. ALL RIGHTS RESERVED.
 </footer>
 
 </body>
