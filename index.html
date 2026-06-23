@@ -1,13 +1,26 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOUISIX</title><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+<title>LOUISIX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 scroll-behavior:smooth;
+}
+
+:root{
+--black:#050505;
+--cyan:#00d9ff;
+--purple:#8b5cf6;
+--silver:#e8e8e8;
 }
 
 body{
@@ -17,61 +30,99 @@ color:white;
 overflow-x:hidden;
 }
 
-.background{
+/* VIDEO */
+
+#bg-video{
 position:fixed;
-inset:0;
-z-index:-2;
-background:
-radial-gradient(circle at 20% 20%,rgba(0,217,255,.15),transparent 35%),
-radial-gradient(circle at 80% 80%,rgba(140,82,255,.15),transparent 35%);
-animation:bgMove 12s infinite alternate ease-in-out;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-3;
 }
 
-@keyframes bgMove{
-from{transform:scale(1);}
-to{transform:scale(1.15);}
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.65);
+z-index:-2;
 }
+
+/* INTRO */
 
 #intro{
 position:fixed;
 inset:0;
-background:#000;
+background:black;
 display:flex;
 justify-content:center;
 align-items:center;
 z-index:99999;
-animation:introFade 3.5s forwards;
+animation:introFade 4s forwards;
 }
 
 #intro img{
-width:280px;
+width:300px;
 max-width:80%;
-animation:logoIntro 3s ease forwards;
+animation:logoIntro 3s ease;
+filter:drop-shadow(0 0 20px white);
 }
 
 @keyframes logoIntro{
-0%{opacity:0;transform:scale(.5);}
-50%{opacity:1;transform:scale(1.08);}
-100%{opacity:1;transform:scale(1);}
+0%{
+opacity:0;
+transform:scale(.5);
+}
+50%{
+opacity:1;
+transform:scale(1.1);
+}
+100%{
+opacity:1;
+transform:scale(1);
+}
 }
 
 @keyframes introFade{
-0%,80%{opacity:1;}
-100%{opacity:0;visibility:hidden;}
+0%,80%{
+opacity:1;
 }
+100%{
+opacity:0;
+visibility:hidden;
+}
+}
+
+/* CURSOR */
+
+.cursor{
+position:fixed;
+width:30px;
+height:30px;
+background:rgba(0,217,255,.4);
+border-radius:50%;
+filter:blur(12px);
+pointer-events:none;
+z-index:999999;
+transform:translate(-50%,-50%);
+}
+
+/* NAV */
 
 nav{
 position:fixed;
 top:0;
+left:0;
 width:100%;
 padding:20px 8%;
 display:flex;
 justify-content:space-between;
 align-items:center;
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(18px);
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(20px);
 border-bottom:1px solid rgba(255,255,255,.08);
-z-index:1000;
+z-index:999;
 }
 
 .logo img{
@@ -80,16 +131,18 @@ height:60px;
 
 nav ul{
 display:flex;
+gap:30px;
 list-style:none;
-gap:24px;
 }
 
 nav a{
 text-decoration:none;
 color:white;
-font-size:14px;
 letter-spacing:2px;
+font-size:14px;
 }
+
+/* HERO */
 
 .hero{
 height:100vh;
@@ -104,27 +157,31 @@ padding:20px;
 .hero-logo{
 width:220px;
 margin-bottom:25px;
-animation:floatLogo 4s infinite ease-in-out;
+animation:floatLogo 5s infinite ease-in-out;
 }
 
 @keyframes floatLogo{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-12px);}
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-15px);
+}
 }
 
 .hero h1{
 font-family:'Cinzel',serif;
-font-size:82px;
-letter-spacing:8px;
-background:linear-gradient(90deg,#fff,#d7d7d7,#fff);
+font-size:90px;
+letter-spacing:10px;
+background:linear-gradient(90deg,#fff,#cfcfcf,#fff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
 .hero p{
 margin-top:15px;
+letter-spacing:4px;
 opacity:.8;
-letter-spacing:3px;
 }
 
 .btn{
@@ -132,39 +189,41 @@ display:inline-block;
 margin-top:35px;
 padding:15px 40px;
 border:1px solid rgba(255,255,255,.2);
-text-decoration:none;
-color:white;
-backdrop-filter:blur(10px);
 background:rgba(255,255,255,.05);
+color:white;
+text-decoration:none;
+letter-spacing:3px;
 transition:.4s;
 }
 
 .btn:hover{
 transform:translateY(-4px);
-box-shadow:0 0 25px rgba(0,217,255,.45);
+box-shadow:0 0 25px var(--cyan);
 }
 
+/* SECTION */
+
 .section{
-padding:110px 8%;
+padding:120px 8%;
 }
 
 .section-title{
 font-family:'Cinzel',serif;
-font-size:42px;
+font-size:45px;
 text-align:center;
-margin-bottom:50px;
+margin-bottom:60px;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:25px;
 }
 
 .card{
 background:rgba(255,255,255,.05);
 border:1px solid rgba(255,255,255,.08);
-border-radius:18px;
+border-radius:20px;
 overflow:hidden;
 transition:.4s;
 }
@@ -176,7 +235,7 @@ box-shadow:0 0 25px rgba(0,217,255,.2);
 
 .card img{
 width:100%;
-height:340px;
+height:320px;
 object-fit:cover;
 }
 
@@ -184,85 +243,173 @@ object-fit:cover;
 padding:20px;
 }
 
+.card p{
+padding:0 20px 20px;
+opacity:.8;
+}
+
+/* ABOUT */
+
 .about{
-max-width:800px;
+max-width:900px;
 margin:auto;
 text-align:center;
 line-height:1.8;
-color:#ccc;
+opacity:.85;
 }
 
+/* FOOTER */
+
 footer{
-padding:40px;
+padding:50px;
 text-align:center;
 border-top:1px solid rgba(255,255,255,.08);
-color:#aaa;
+background:rgba(255,255,255,.03);
 }
+
+/* REVEAL */
 
 .reveal{
 opacity:0;
-transform:translateY(40px);
+transform:translateY(50px);
 transition:1s;
 }
 
-.reveal.active{
+.reveal.show{
 opacity:1;
 transform:translateY(0);
 }
 
+/* MOBILE */
+
 @media(max-width:768px){
+
 .hero h1{
 font-size:48px;
+letter-spacing:4px;
 }
+
 .hero-logo{
-width:160px;
+width:150px;
 }
+
 .logo img{
-height:48px;
+height:45px;
 }
+
+nav ul{
+gap:15px;
 }
-</style></head><body><div class="background"></div><div id="intro">
-<img src="file_0000000050b8722f82fa33b1a8f67752.png">
-</div><nav>
+
+.section-title{
+font-size:34px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<video autoplay muted loop playsinline id="bg-video">
+<source src="video.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<div id="intro">
+<img src="logo.png" alt="LOUISIX">
+</div>
+
+<div class="cursor"></div>
+
+<nav>
 <div class="logo">
-<img src="file_0000000050b8722f82fa33b1a8f67752.png">
-</div><ul>
+<img src="logo.png" alt="LOUISIX">
+</div>
+
+<ul>
 <li><a href="#">HOME</a></li>
 <li><a href="#collection">COLLECTION</a></li>
 <li><a href="#about">ABOUT</a></li>
 </ul>
-</nav><section class="hero">
-<img class="hero-logo" src="file_0000000050b8722f82fa33b1a8f67752.png"><h1>LOUISIX</h1>
-<p>FUTURE OF LUXURY STREETWEAR</p><a href="#collection" class="btn">
-EXPLORE
-</a>
-</section><section class="section reveal" id="collection">
-<h2 class="section-title">COLLECTION</h2><div class="grid"><div class="card">
+</nav>
+
+<section class="hero">
+<img class="hero-logo" src="logo.png" alt="LOUISIX">
+
+<h1>LOUISIX</h1>
+
+<p>FUTURE OF LUXURY STREETWEAR</p>
+
+<a href="#collection" class="btn">EXPLORE</a>
+</section>
+
+<section class="section reveal" id="collection">
+
+<h2 class="section-title">COLLECTION</h2>
+
+<div class="grid">
+
+<div class="card">
 <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=1200">
 <h3>Chrome Vision</h3>
-</div><div class="card">
+<p>Luxury chrome inspired collection.</p>
+</div>
+
+<div class="card">
 <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1200">
-<h3>Luxury Future</h3>
-</div><div class="card">
+<h3>Future Luxury</h3>
+<p>Minimal futuristic aesthetic.</p>
+</div>
+
+<div class="card">
 <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1200">
 <h3>Y2K Elite</h3>
-</div></div>
-</section><section class="section reveal" id="about">
-<h2 class="section-title">ABOUT</h2><div class="about">
-LOUISIX adalah luxury fashion label dengan identitas chrome Y2K, futuristik, premium, dan modern.
+<p>Cyber luxury streetwear concept.</p>
 </div>
-</section><footer>
-© 2026 LOUISIX
-</footer><script>
+
+</div>
+
+</section>
+
+<section class="section reveal" id="about">
+
+<h2 class="section-title">ABOUT</h2>
+
+<div class="about">
+LOUISIX adalah brand fashion luxury dengan identitas Y2K Chrome,
+menggabungkan futurism, premium aesthetics, dan modern streetwear.
+</div>
+
+</section>
+
+<footer>
+© 2026 LOUISIX — ALL RIGHTS RESERVED
+</footer>
+
+<script>
+
+const cursor=document.querySelector('.cursor');
+
+document.addEventListener('mousemove',(e)=>{
+cursor.style.left=e.clientX+'px';
+cursor.style.top=e.clientY+'px';
+});
+
 const reveals=document.querySelectorAll('.reveal');
 
 window.addEventListener('scroll',()=>{
 reveals.forEach(el=>{
 const top=el.getBoundingClientRect().top;
-if(top<window.innerHeight-100){
-el.classList.add('active');
+
+if(top < window.innerHeight-100){
+el.classList.add('show');
 }
 });
 });
-</script></body>
+
+</script>
+
+</body>
 </html>
