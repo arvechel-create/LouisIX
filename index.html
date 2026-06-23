@@ -6,25 +6,29 @@
 <title>LOUISIX X ARCHIVE SYSTEM V3</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
-body{background:#000;color:#fff;font-family: 'Courier New', Courier, monospace; overflow-x:hidden}
-
-/* Overlay Classified */
-#classified-overlay {
-    position: fixed; inset: 0; background: #000; z-index: 10001;
-    display: flex; align-items: center; justify-content: center;
-    text-align: center; color: #0f0;
+body{background:#000;color:#fff;font-family:Arial,sans-serif;overflow-x:hidden}
+body:before{
+content:'';
+position:fixed;
+inset:0;
+pointer-events:none;
+opacity:.035;
+z-index:-1;
+background:
+repeating-linear-gradient(0deg,
+rgba(255,255,255,.12) 0px,
+rgba(255,255,255,.12) 1px,
+transparent 2px,
+transparent 4px);
 }
-.classified-content { border: 1px solid #0f0; padding: 40px; max-width: 500px; }
-.classified-content h1 { letter-spacing: 5px; margin-bottom: 20px; text-shadow: 0 0 10px #0f0; }
-.classified-btn { 
-    background: transparent; border: 1px solid #0f0; color: #0f0; 
-    padding: 10px 20px; margin: 10px; cursor: pointer; font-family: inherit; 
+body:after{
+content:'';
+position:fixed;
+inset:0;
+pointer-events:none;
+background:radial-gradient(circle,transparent 40%,rgba(0,0,0,.45) 100%);
+z-index:-1;
 }
-.classified-btn:hover { background: #0f0; color: #000; }
-
-/* Styles lainnya tetap sama */
-body:before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.035;z-index:-1;background:repeating-linear-gradient(0deg,rgba(255,255,255,.12) 0px,rgba(255,255,255,.12) 1px,transparent 2px,transparent 4px);}
-body:after{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle,transparent 40%,rgba(0,0,0,.45) 100%);z-index:-1;}
 video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:-1}
 #boot{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:9999}
@@ -52,47 +56,165 @@ input,select{width:100%;padding:10px;margin:5px 0;background:#111;color:#fff;bor
 .hero h1{font-size:42px}
 .hero h3{font-size:24px}
 }
-.glitch{position:relative;font-size:64px;font-weight:900;letter-spacing:4px;animation:glitch 1s infinite;}
-.glitch:before,.glitch:after{content:'LOUISIX X';position:absolute;left:0;top:0;width:100%;overflow:hidden;}
-.glitch:before{left:2px;text-shadow:-2px 0 red;animation:glitchTop 1s infinite;}
-.glitch:after{left:-2px;text-shadow:2px 0 cyan;animation:glitchBottom 1s infinite;}
-@keyframes glitch{0%,100%{transform:translate(0)} 20%{transform:translate(-2px,2px)} 40%{transform:translate(2px,-2px)} 60%{transform:translate(-2px,0)} 80%{transform:translate(2px,0)}}
-@keyframes glitchTop{0%,100%{clip-path:inset(0 0 70% 0)} 50%{clip-path:inset(0 0 30% 0)}}
-@keyframes glitchBottom{0%,100%{clip-path:inset(70% 0 0 0)} 50%{clip-path:inset(30% 0 0 0)}}
-.noise{position:fixed;inset:0;opacity:0;pointer-events:none;z-index:10000;background:repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0px,rgba(255,255,255,.04) 1px,transparent 2px,transparent 4px);}
+
+.glitch{
+position:relative;
+font-size:64px;
+font-weight:900;
+letter-spacing:4px;
+animation:glitch 1s infinite;
+}
+.glitch:before,.glitch:after{
+content:'LOUISIX X';
+position:absolute;
+left:0;top:0;
+width:100%;
+overflow:hidden;
+}
+.glitch:before{
+left:2px;
+text-shadow:-2px 0 red;
+animation:glitchTop 1s infinite;
+}
+.glitch:after{
+left:-2px;
+text-shadow:2px 0 cyan;
+animation:glitchBottom 1s infinite;
+}
+@keyframes glitch{
+0%,100%{transform:translate(0)}
+20%{transform:translate(-2px,2px)}
+40%{transform:translate(2px,-2px)}
+60%{transform:translate(-2px,0)}
+80%{transform:translate(2px,0)}
+}
+@keyframes glitchTop{
+0%,100%{clip-path:inset(0 0 70% 0)}
+50%{clip-path:inset(0 0 30% 0)}
+}
+@keyframes glitchBottom{
+0%,100%{clip-path:inset(70% 0 0 0)}
+50%{clip-path:inset(30% 0 0 0)}
+}
+
+
+.noise{
+position:fixed;
+inset:0;
+opacity:0;
+pointer-events:none;
+z-index:10000;
+background:
+repeating-linear-gradient(0deg,
+rgba(255,255,255,.04) 0px,
+rgba(255,255,255,.04) 1px,
+transparent 2px,
+transparent 4px);
+}
 .noise.flash{animation:noiseFlash .08s linear;}
-@keyframes noiseFlash{0%{opacity:0} 50%{opacity:.18} 100%{opacity:0}}
+@keyframes noiseFlash{
+0%{opacity:0}
+50%{opacity:.18}
+100%{opacity:0}
+}
+
 </style>
 </head>
 <body>
-
-<!-- Overlay Classified -->
-<div id="classified-overlay">
-    <div class="classified-content">
-        <h1>⚠ CLASSIFIED FILE</h1>
-        <p>UNAUTHORIZED ACCESS IS PROHIBITED</p><br>
-        <p>This system contains confidential information.<br>All activities are monitored and logged.</p><br>
-        <button class="classified-btn" onclick="document.getElementById('classified-overlay').style.display='none'">[ ACCEPT ]</button>
-        <button class="classified-btn" onclick="window.location.href='https://google.com'">[ LEAVE ]</button>
-    </div>
-</div>
-
 <div id="boot"><h1>LOUISIX X</h1><p style="opacity:.5;letter-spacing:3px">OPERATE IN SILENCE</p></div><div class="noise" id="noise"></div>
 
-<!-- Sisa struktur lainnya tetap sama -->
-... (konten web Anda) ...
+
+<div id="cartDrawer" class="drawer"><h2>CART ROOM</h2><div id="cartContent">Empty</div></div>
+
+<nav>
+<button class="menuBtn" onclick="toggleMenu()">☰</button>
+<div id="mobileMenu">
+<a href="#origin">Origin</a>
+<a href="#signal">Signal</a>
+<a href="#drop">Drop</a>
+<a href="#colors">Colors</a>
+<a href="#sizes">Sizes</a>
+<a href="#criteria">Criteria</a>
+<a href="#lookbook">Lookbook</a>
+<a href="#archive">Archive</a>
+<a href="#acquisition">Acquire</a>
+<a href="#wishlist">Wishlist</a>
+<a href="#account">Account</a>
+<a href="#clearance">Clearance</a>
+<a href="#" onclick="toggleCart()">Cart</a>
+</div></nav>
+
+<section class="hero">
+<img src="logo.png">
+<h1>LOUISIX X</h1>
+<h3>OPERATE IN SILENCE. DOMINATE THE SIGNAL.</h3>
+</section>
+
+<section id="origin"><div class="room"><h2>ORIGIN FILE</h2><p>Luxury Streetwear Archive.</p></div></section>
+<section id="signal"><div class="room"><h2>SIGNAL ROOM</h2><p>Low Profile. High Signal.</p></div></section>
+
+<section id="drop">
+<div class="room">
+<h2>DROP_001 GLITCH I</h2><br>
+<div class="grid">
+<div class="viewer">
+<img id="viewer" src="glitch-black-front.png">
+</div>
+<div>
+<select id="color"><option>BLACK</option><option>WHITE</option></select>
+<select id="size"><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+<input id="qty" type="number" value="1">
+<button class="btn" onclick="addCart()">ADD CART</button>
+<button class="btn" onclick="saveWishlist()">WISHLIST</button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="colors"><div class="room"><h2>COLOR ARCHIVE</h2><button class="btn" onclick="viewer.src='glitch-black-front.png'">BLACK</button><button class="btn" onclick="viewer.src='glitch-white-front.png'">WHITE</button></div></section>
+
+<section id="sizes"><div class="room"><h2>SIZE ARCHIVE</h2><p>S 56x68 | M 58x70 | L 60x72 | XL 62x74 | XXL 64x76</p></div></section>
+
+<section id="criteria"><div class="room"><h2>PRODUCT CRITERIA</h2><p>Boxy Fit • Premium Cotton • Chrome Glitch • Series X</p></div></section>
+
+<section id="lookbook"><div class="room"><h2>LOOKBOOK</h2><div class="gallery">
+<img src="glitch-black-front.png"><img src="glitch-black-back.png"><img src="glitch-white-front.png"><img src="glitch-white-back.png">
+</div></div></section>
+
+<section id="archive"><div class="room"><h2>VISUAL ARCHIVE</h2><p>Front / Rear / Color references.</p></div></section>
+
+<section id="acquisition"><div class="room"><h2>ACQUISITION CENTER</h2>
+<input id="name" placeholder="Name"><input id="city" placeholder="City"><input id="address" placeholder="Address">
+<button class="btn" onclick="checkout()">TRANSMIT ORDER</button>
+</div></section>
+
+<section id="wishlist"><div class="room"><h2>WISHLIST ROOM</h2><div id="wishBox">Empty</div></div></section>
+
+<section id="account"><div class="room"><h2>ACCOUNT ROOM</h2><div class="grid"><input placeholder="Email"><input placeholder="Password"></div></div></section>
+
+<section id="clearance"><div class="room"><h2>CLEARANCE ACCESS</h2><p>STATUS: AVAILABLE</p></div></section>
+
+<section><div class="room"><h2>ADMIN ROOM</h2><p>Orders • Wishlist • Products</p></div></section>
+
+<footer style="padding:40px;text-align:center">Creative Direction — Louis Y2K<br>System Architecture — ChatGPT</footer>
 
 <script>
-// Fungsi yang sudah ada + tambahan
 setTimeout(()=>{noise.classList.add('flash');},800);
 setTimeout(()=>{boot.style.opacity='0';},1500);
 setTimeout(()=>{boot.style.display='none';},2000);
-
 function toggleMenu(){mobileMenu.classList.toggle("show");}
 function toggleCart(){event.preventDefault();cartDrawer.classList.toggle('open');}
-function addCart(){cartContent.innerHTML='GLITCH I | '+color.value+' | '+size.value+' | Qty '+qty.value;localStorage.setItem('cart',cartContent.innerHTML);}
-function saveWishlist(){wishBox.innerHTML='GLITCH I';localStorage.setItem('wish','GLITCH I');}
-function checkout(){let msg='GLITCH I '+color.value+' '+size.value+' Qty '+qty.value+' Name '+name.value;window.open('https://wa.me/?text='+encodeURIComponent(msg));}
+function addCart(){
+cartContent.innerHTML='GLITCH I | '+color.value+' | '+size.value+' | Qty '+qty.value;
+localStorage.setItem('cart',cartContent.innerHTML);
+}
+function saveWishlist(){
+wishBox.innerHTML='GLITCH I';
+localStorage.setItem('wish','GLITCH I');
+}
+function checkout(){
+let msg='GLITCH I '+color.value+' '+size.value+' Qty '+qty.value+' Name '+name.value;
+window.open('https://wa.me/?text='+encodeURIComponent(msg));
+}
 </script>
-</body>
-</html>
+</body></html>
