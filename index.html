@@ -2,61 +2,122 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>LOUISIX X</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LOUISIX X ARCHIVE SYSTEM V3</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-body{background:#050505;color:white;font-family:Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+body{background:#000;color:#fff;font-family:Arial,sans-serif}
 video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:-1}
-nav{position:fixed;top:0;width:100%;padding:16px 5%;display:flex;justify-content:space-between;background:rgba(255,255,255,.05);backdrop-filter:blur(12px)}
-.hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.hero img{width:180px}
-.section{padding:100px 8%}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.card{background:rgba(255,255,255,.06);padding:20px;border-radius:18px}
-.btn{display:inline-block;padding:10px 18px;border:1px solid #00d9ff;margin-top:10px}
-footer{text-align:center;padding:40px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:-1}
+#boot{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:9999}
+nav{position:sticky;top:0;padding:14px;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);display:flex;gap:10px;flex-wrap:wrap}
+nav a{color:#fff;text-decoration:none}
+section{padding:80px 8%}
+.room{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:24px;border-radius:22px;backdrop-filter:blur(12px)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center}
+.hero img{width:240px}
+.btn{padding:10px 16px;background:none;border:1px solid #fff;color:#fff;cursor:pointer}
+.gallery img,.viewer img{width:100%;border-radius:18px}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.drawer{position:fixed;right:0;top:0;width:320px;height:100%;background:#111;padding:20px;transform:translateX(100%);transition:.3s;overflow:auto}
+.open{transform:translateX(0)}
+input,select{width:100%;padding:10px;margin:5px 0;background:#111;color:#fff;border:1px solid #333}
+@media(max-width:768px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+<div id="boot"><h1>LOUISIX X</h1><p>BOOTING ARCHIVE...</p></div>
 <video autoplay muted loop playsinline><source src="video.mp4" type="video/mp4"></video>
 <div class="overlay"></div>
 
+<div id="cartDrawer" class="drawer"><h2>CART ROOM</h2><div id="cartContent">Empty</div></div>
+
 <nav>
-<div>LOUISIX X</div>
-<div>Cart <span id="cart">0</span></div>
+<a href="#origin">Origin</a>
+<a href="#signal">Signal</a>
+<a href="#drop">Drop</a>
+<a href="#colors">Colors</a>
+<a href="#sizes">Sizes</a>
+<a href="#criteria">Criteria</a>
+<a href="#lookbook">Lookbook</a>
+<a href="#archive">Archive</a>
+<a href="#acquisition">Acquire</a>
+<a href="#wishlist">Wishlist</a>
+<a href="#account">Account</a>
+<a href="#clearance">Clearance</a>
+<a href="#" onclick="toggleCart()">Cart</a>
 </nav>
 
 <section class="hero">
-<img src="file_0000000050b8722f82fa33b1a8f67752.png">
+<img src="logo.png">
 <h1>LOUISIX X</h1>
-<p>Level 10 Frontend Edition</p>
+<h3>OPERATE IN SILENCE. DOMINATE THE SIGNAL.</h3>
 </section>
 
-<section class="section">
-<h2>Shop</h2><br>
+<section id="origin"><div class="room"><h2>ORIGIN FILE</h2><p>Luxury Streetwear Archive.</p></div></section>
+<section id="signal"><div class="room"><h2>SIGNAL ROOM</h2><p>Low Profile. High Signal.</p></div></section>
+
+<section id="drop">
+<div class="room">
+<h2>DROP_001 GLITCH I</h2><br>
 <div class="grid">
-<div class="card"><h3>Chrome Jacket</h3><p>Rp 899.000</p><div class="btn" onclick="add()">Add Cart</div></div>
-<div class="card"><h3>Future Hoodie</h3><p>Rp 599.000</p><div class="btn" onclick="add()">Add Cart</div></div>
-<div class="card"><h3>Elite Tee</h3><p>Rp 299.000</p><div class="btn" onclick="add()">Add Cart</div></div>
+<div class="viewer">
+<img id="viewer" src="glitch-black-front.png">
+</div>
+<div>
+<select id="color"><option>BLACK</option><option>WHITE</option></select>
+<select id="size"><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+<input id="qty" type="number" value="1">
+<button class="btn" onclick="addCart()">ADD CART</button>
+<button class="btn" onclick="saveWishlist()">WISHLIST</button>
+</div>
+</div>
 </div>
 </section>
 
-<section class="section"><h2>Lookbook</h2><div class="card">2026 Collection Archive</div></section>
-<section class="section"><h2>Member Dashboard</h2><div class="card">Tier: ELITE | Points: 1200</div></section>
-<section class="section"><h2>Wishlist</h2><div class="card">Favorite Products</div></section>
+<section id="colors"><div class="room"><h2>COLOR ARCHIVE</h2><button class="btn" onclick="viewer.src='glitch-black-front.png'">BLACK</button><button class="btn" onclick="viewer.src='glitch-white-front.png'">WHITE</button></div></section>
 
-<footer>
-<p>Creative Direction — Louis Y2K</p>
-<p>Development & AI Assistance — ChatGPT</p>
-<p>LOUISIX® 2026</p>
-</footer>
+<section id="sizes"><div class="room"><h2>SIZE ARCHIVE</h2><p>S 56x68 | M 58x70 | L 60x72 | XL 62x74 | XXL 64x76</p></div></section>
+
+<section id="criteria"><div class="room"><h2>PRODUCT CRITERIA</h2><p>Boxy Fit • Premium Cotton • Chrome Glitch • Series X</p></div></section>
+
+<section id="lookbook"><div class="room"><h2>LOOKBOOK</h2><div class="gallery">
+<img src="glitch-black-front.png"><img src="glitch-black-back.png"><img src="glitch-white-front.png"><img src="glitch-white-back.png">
+</div></div></section>
+
+<section id="archive"><div class="room"><h2>VISUAL ARCHIVE</h2><p>Front / Rear / Color references.</p></div></section>
+
+<section id="acquisition"><div class="room"><h2>ACQUISITION CENTER</h2>
+<input id="name" placeholder="Name"><input id="city" placeholder="City"><input id="address" placeholder="Address">
+<button class="btn" onclick="checkout()">TRANSMIT ORDER</button>
+</div></section>
+
+<section id="wishlist"><div class="room"><h2>WISHLIST ROOM</h2><div id="wishBox">Empty</div></div></section>
+
+<section id="account"><div class="room"><h2>ACCOUNT ROOM</h2><div class="grid"><input placeholder="Email"><input placeholder="Password"></div></div></section>
+
+<section id="clearance"><div class="room"><h2>CLEARANCE ACCESS</h2><p>STATUS: AVAILABLE</p></div></section>
+
+<section><div class="room"><h2>ADMIN ROOM</h2><p>Orders • Wishlist • Products</p></div></section>
+
+<footer style="padding:40px;text-align:center">Creative Direction — Louis Y2K<br>System Architecture — ChatGPT</footer>
 
 <script>
-let c=+(localStorage.cart||0);
-document.getElementById('cart').textContent=c;
-function add(){c++;localStorage.cart=c;document.getElementById('cart').textContent=c;}
+setTimeout(()=>boot.style.display='none',2500);
+function toggleCart(){event.preventDefault();cartDrawer.classList.toggle('open');}
+function addCart(){
+cartContent.innerHTML='GLITCH I | '+color.value+' | '+size.value+' | Qty '+qty.value;
+localStorage.setItem('cart',cartContent.innerHTML);
+}
+function saveWishlist(){
+wishBox.innerHTML='GLITCH I';
+localStorage.setItem('wish','GLITCH I');
+}
+function checkout(){
+let msg='GLITCH I '+color.value+' '+size.value+' Qty '+qty.value+' Name '+name.value;
+window.open('https://wa.me/?text='+encodeURIComponent(msg));
+}
 </script>
-</body>
-</html>
+</body></html>
+  
