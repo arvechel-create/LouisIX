@@ -46,8 +46,8 @@ section{padding:80px 8%}
 .drawer{position:fixed;right:0;top:0;width:320px;height:100%;background:#111;padding:20px;transform:translateX(100%);transition:.3s;overflow:auto}
 .open{transform:translateX(0)}
 input,select{width:100%;padding:10px;margin:5px 0;background:#111;color:#fff;border:1px solid #333}
-#mobileMenu{display:flex;gap:20px}
-.menuBtn{display:none;background:none;border:none;color:white;font-size:24px}
+#mobileMenu{display:none;gap:20px;flex-direction:column;position:absolute;top:60px;left:0;width:100%;background:#000;padding:15px;z-index:9999}
+.menuBtn{display:block;background:none;border:none;color:white;font-size:24px;cursor:pointer}
 @media(max-width:768px){
 .grid{grid-template-columns:1fr}
 .menuBtn{display:block}
@@ -118,34 +118,130 @@ transparent 4px);
 100%{opacity:0}
 }
 
+
+#bgVideo{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;filter:blur(5px) brightness(.35)}
+#classified{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:100000;transition:1s}
+.classified-box{max-width:500px;padding:40px;text-align:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.15);border-radius:24px;backdrop-filter:blur(20px)}
+.statusBar{position:fixed;top:15px;right:20px;font-size:12px;letter-spacing:2px;opacity:.7;z-index:998}
+.clock{font-weight:bold}
+.smokeGlow{animation:smokeGlow 8s ease infinite}
+@keyframes smokeGlow{0%,100%{filter:blur(5px) brightness(.35)}50%{filter:blur(6px) brightness(.45)}}
+.subtle-glitch{animation:subtleGlitch .4s ease}
+@keyframes subtleGlitch{0%{transform:translate(0)}25%{transform:translate(2px,-1px)}50%{transform:translate(-2px,1px)}75%{transform:translate(1px,0)}100%{transform:translate(0)}}
+
+
+#terminal{position:fixed;bottom:20px;left:20px;width:320px;height:140px;overflow:hidden;
+background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.15);
+padding:10px;font-size:11px;font-family:monospace;z-index:999}
+#particles{position:fixed;inset:0;pointer-events:none;z-index:1}
+.cursor-dot{width:14px;height:14px;border:1px solid #fff;border-radius:50%;
+position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%)}
+#decryptScreen{position:fixed;inset:0;background:#000;display:none;
+align-items:center;justify-content:center;flex-direction:column;z-index:100001}
+.bar{width:260px;height:8px;border:1px solid #fff;margin-top:15px}
+.fill{height:100%;width:0%;background:#fff}
+
+
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.sidebar{position:fixed;left:-320px;top:0;width:320px;height:100%;background:rgba(0,0,0,.95);
+backdrop-filter:blur(12px);transition:.35s;z-index:10002;padding:25px}
+.sidebar.open{left:0}
+.sidebar a{display:block;color:#fff;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.sidebarLogo{text-align:center;margin-bottom:25px}
+.sidebarLogo img{width:120px}
+.menuBackdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;z-index:10001}
+.menuBackdrop.show{display:block}
+
+
+.omega-mode{filter:contrast(1.1)}
+#sysStatus{position:fixed;right:20px;bottom:20px;background:rgba(0,0,0,.5);padding:12px;border:1px solid rgba(255,255,255,.15);z-index:999}
+#databaseRoom{display:none;position:fixed;inset:10%;background:#050505;border:1px solid #333;padding:20px;overflow:auto;z-index:10050}
+.dbfile{padding:10px;border:1px solid #222;margin:10px 0;cursor:pointer}
+#terminalBox{position:fixed;left:20px;bottom:180px;width:320px;height:120px;overflow:auto;background:rgba(0,0,0,.45);padding:10px;font-family:monospace;font-size:11px;z-index:999}
+
+
+.archiveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.archiveCard{padding:22px;border:1px solid rgba(255,255,255,.12);border-radius:18px;
+background:rgba(255,255,255,.04);transition:.3s}
+.archiveCard:hover{transform:translateY(-6px);background:rgba(255,255,255,.07)}
+
+
+#terminal,#terminalBox{display:none!important;}
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+body{font-family:'Space Grotesk',sans-serif!important;}
+.hero h1{font-size:clamp(64px,10vw,120px);letter-spacing:8px}
+.hero h3{opacity:.75;letter-spacing:3px}
+.archiveCard h3{letter-spacing:3px}
+.revealCover{display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:300px}
+
+</style>
+
+<style>
+.rarity{margin-top:15px;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:14px}
+.vaultGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.vaultCard{padding:20px;border:1px solid rgba(255,255,255,.12);border-radius:18px;cursor:pointer}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:99999;align-items:center;justify-content:center}
+.lightbox img{max-width:90%;max-height:90%}
+.omega .btn,.omega .vaultCard{border-color:#c9a227}
 </style>
 </head>
 <body>
+
+<video autoplay muted loop playsinline id="bgVideo">
+<source src="smoke.mp4" type="video/mp4">
+</video>
+
+<div id="classified">
+<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+<img src="logo.png" style="width:140px;display:block;margin:0 auto 20px;animation:pulse 2s infinite;">
+</div>
+<div class="classified-box">
+<h1>⚠ CLASSIFIED FILE</h1>
+<p>TOP SECRET<br>Unauthorized access is prohibited.<br>All activities are monitored.</p>
+<button onclick="enterArchive()" class="btn">ENTER SYSTEM</button>
+</div>
+</div>
+
+<div class="statusBar">
+<div class="clock" id="clock"></div>
+<div>STATUS : ONLINE</div>
+<div>SECURITY : ALPHA</div>
+</div>
+
 <div id="boot"><h1>LOUISIX X</h1><p style="opacity:.5;letter-spacing:3px">OPERATE IN SILENCE</p></div><div class="noise" id="noise"></div>
 
 
 <div id="cartDrawer" class="drawer"><h2>CART ROOM</h2><div id="cartContent">Empty</div></div>
 
+
+<div class="menuBackdrop" id="menuBackdrop" onclick="toggleMenu()"></div>
+<div class="sidebar" id="sidebar">
+<div class="sidebarLogo">
+<img src="logo.png">
+<h3>LOUISIX X</h3>
+</div>
+<a href="#origin">ORIGIN FILE</a>
+<a href="#signal">SIGNAL ROOM</a>
+<a href="#archive">ARCHIVE</a>
+<a href="#lookbook">LOOKBOOK</a>
+<a href="#acquisition">ACQUISITION</a>
+<a href="#wishlist">WISHLIST</a>
+<a href="#account">ACCOUNT</a>
+<a href="#clearance">CLEARANCE</a>
+</div>
+
 <nav>
 <button class="menuBtn" onclick="toggleMenu()">☰</button>
 <div id="mobileMenu">
-<a href="#origin">Origin</a>
-<a href="#signal">Signal</a>
-<a href="#drop">Drop</a>
-<a href="#colors">Colors</a>
-<a href="#sizes">Sizes</a>
-<a href="#criteria">Criteria</a>
-<a href="#lookbook">Lookbook</a>
 <a href="#archive">Archive</a>
-<a href="#acquisition">Acquire</a>
-<a href="#wishlist">Wishlist</a>
+<a href="#drop">Store</a>
+<a href="#lookbook">Lookbook</a>
 <a href="#account">Account</a>
-<a href="#clearance">Clearance</a>
-<a href="#" onclick="toggleCart()">Cart</a>
 </div></nav>
 
 <section class="hero">
-<img src="file_0000000050b8722f82fa33b1a8f67752.png">
+<img src="logo.png">
 <h1>LOUISIX X</h1>
 <h3>OPERATE IN SILENCE. DOMINATE THE SIGNAL.</h3>
 </section>
@@ -155,16 +251,31 @@ transparent 4px);
 
 <section id="drop">
 <div class="room">
-<h2>DROP_001 GLITCH I</h2><br>
+<h2>DROP_001 — CODENAME: 0</h2><br>
 <div class="grid">
 <div class="viewer">
-<img id="viewer" src="glitch-black-front.png">
+<div id="revealBox" class="revealCover">
+    <h3>FILE ENCRYPTED</h3><br>
+    <button class="btn" onclick="revealProduct()">REVEAL FILE</button>
+    </div>
+    <img id="viewer" src="glitch-black-front.png" style="display:none">
 </div>
 <div>
 <select id="color"><option>BLACK</option><option>WHITE</option></select>
 <select id="size"><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
 <input id="qty" type="number" value="1">
+
+<div class="rarity">
+<b>CODENAME: 0</b><br><br>
+FIRST TRANSMISSION<br><br>
+FILE STATUS — CLASSIFIED<br>
+ARCHIVE CLASS — ALPHA<br>
+RARITY INDEX — 100%<br>
+SIGNAL LEVEL — ORIGIN<br><br>
+<small>Before the signal. Before the archive. There was Zero.</small>
+</div><br>
 <button class="btn" onclick="addCart()">ADD CART</button>
+
 <button class="btn" onclick="saveWishlist()">WISHLIST</button>
 </div>
 </div>
@@ -181,7 +292,19 @@ transparent 4px);
 <img src="glitch-black-front.png"><img src="glitch-black-back.png"><img src="glitch-white-front.png"><img src="glitch-white-back.png">
 </div></div></section>
 
-<section id="archive"><div class="room"><h2>VISUAL ARCHIVE</h2><p>Front / Rear / Color references.</p></div></section>
+
+<section id="archive">
+<div class="room">
+<h2>CLASSIFIED ARCHIVE</h2>
+<p>Restricted visual records and drop history.</p><br>
+<div class="archiveGrid">
+<div class="archiveCard"><h3>DROP_001</h3><p>CODENAME: 0 — THE ORIGIN</p></div>
+<div class="archiveCard"><h3>DROP_002</h3><p>LOCKED</p></div>
+<div class="archiveCard"><h3>DROP_003</h3><p>LOCKED</p></div>
+</div>
+</div>
+</section>
+
 
 <section id="acquisition"><div class="room"><h2>ACQUISITION CENTER</h2>
 <input id="name" placeholder="Name"><input id="city" placeholder="City"><input id="address" placeholder="Address">
@@ -196,13 +319,16 @@ transparent 4px);
 
 <section><div class="room"><h2>ADMIN ROOM</h2><p>Orders • Wishlist • Products</p></div></section>
 
-<footer style="padding:40px;text-align:center">Creative Direction — Louis Y2K<br>System Architecture — ChatGPT</footer>
+
 
 <script>
 setTimeout(()=>{noise.classList.add('flash');},800);
 setTimeout(()=>{boot.style.opacity='0';},1500);
 setTimeout(()=>{boot.style.display='none';},2000);
-function toggleMenu(){mobileMenu.classList.toggle("show");}
+function toggleMenu(){
+document.getElementById('sidebar').classList.toggle('open');
+document.getElementById('menuBackdrop').classList.toggle('show');
+}
 function toggleCart(){event.preventDefault();cartDrawer.classList.toggle('open');}
 function addCart(){
 cartContent.innerHTML='GLITCH I | '+color.value+' | '+size.value+' | Qty '+qty.value;
@@ -216,5 +342,148 @@ function checkout(){
 let msg='GLITCH I '+color.value+' '+size.value+' Qty '+qty.value+' Name '+name.value;
 window.open('https://wa.me/?text='+encodeURIComponent(msg));
 }
+
+function enterArchive(){
+noise.classList.add("flash");
+document.body.classList.add("subtle-glitch");
+setTimeout(()=>{
+document.getElementById("classified").style.opacity="0";
+setTimeout(()=>{document.getElementById("classified").style.display="none";},1000);
+},400);
+}
+setInterval(()=>{
+const el=document.getElementById("clock");
+if(el) el.innerHTML=new Date().toLocaleTimeString();
+},1000);
+document.getElementById("bgVideo").classList.add("smokeGlow");
+
+
+const logs=["CONNECTED","NODE VERIFIED","ENCRYPTION ACTIVE","ARCHIVE READY","SIGNAL SECURE"];
+setInterval(()=>{
+const t=document.getElementById('terminal');
+if(t){t.innerHTML+="<br>"+new Date().toLocaleTimeString()+" "+logs[Math.floor(Math.random()*logs.length)];
+t.scrollTop=t.scrollHeight;}
+},2500);
+
+document.addEventListener('mousemove',e=>{
+const c=document.getElementById('cursorDot');
+if(c){c.style.left=e.clientX+'px';c.style.top=e.clientY+'px';}
+});
+
+function enterArchive(){
+const dec=document.getElementById('decryptScreen');
+const txt=document.getElementById('decryptText');
+const fill=document.getElementById('fill');
+dec.style.display='flex';
+const msgs=[
+'AUTHENTICATING USER...',
+'ACCESSING SECURE NODE...',
+'DECRYPTING ARCHIVES...',
+'VERIFYING CLEARANCE...',
+'ACCESS GRANTED'
+];
+let i=0,p=0;
+const iv=setInterval(()=>{
+txt.textContent=msgs[i];
+p+=20; fill.style.width=p+'%';
+i++;
+if(i>=msgs.length){
+clearInterval(iv);
+setTimeout(()=>{
+dec.style.display='none';
+const cls=document.getElementById('classified');
+if(cls){cls.style.opacity='0';setTimeout(()=>cls.style.display='none',800);}
+},700);
+}
+},800);
+}
+
+const canvas=document.getElementById('particles');
+if(canvas){
+const ctx=canvas.getContext('2d');
+function rs(){canvas.width=innerWidth;canvas.height=innerHeight}
+rs(); addEventListener('resize',rs);
+const pts=Array.from({length:60},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*2+0.5,v:Math.random()*0.4+0.1}));
+(function a(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+pts.forEach(p=>{p.y-=p.v;if(p.y<0)p.y=innerHeight;
+ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fillStyle='rgba(255,255,255,.25)';ctx.fill();});
+requestAnimationFrame(a);
+})();
+}
+
+
+
+
+let omegaBuffer='';
+document.addEventListener('keydown',e=>{
+omegaBuffer+=(e.key||'').toLowerCase();
+if(omegaBuffer.length>20) omegaBuffer=omegaBuffer.slice(-20);
+if(omegaBuffer.includes('omega')){
+document.body.classList.add('omega-mode');
+document.body.style.background='#111';
+alert('OMEGA CLEARANCE GRANTED');
+}
+});
+setInterval(()=>{
+const t=document.getElementById('terminalBox');
+if(t){t.innerHTML += '<br>> '+new Date().toLocaleTimeString()+' SIGNAL SECURE'; t.scrollTop=t.scrollHeight;}
+},4000);
+
+
+function revealProduct(){
+const box=document.getElementById('revealBox');
+const img=document.getElementById('viewer');
+if(box) box.style.display='none';
+if(img) img.style.display='block';
+}
+
 </script>
-</body></html>
+
+<canvas id="particles"></canvas>
+<div id="decryptScreen">
+<h2 id="decryptText">AUTHENTICATING USER...</h2>
+<div class="bar"><div class="fill" id="fill"></div></div>
+</div>
+
+<div class="cursor-dot" id="cursorDot"></div>
+
+
+
+
+
+
+
+
+
+<section id="vault"><div class="room">
+<h2>ARCHIVE VAULT</h2><br>
+<div class="vaultGrid">
+<div class="vaultCard">DROP_001</div>
+<div class="vaultCard">DROP_002</div>
+<div class="vaultCard" id="omegaCard" style="display:none">OMEGA ARCHIVE</div>
+</div>
+</div></section>
+
+<div id="lightbox" class="lightbox" onclick="this.style.display='none'"><img id="lightboxImg"></div>
+</body>
+<script>
+let omegaKey='';
+document.addEventListener('keydown',e=>{
+ omegaKey+=(e.key||'').toLowerCase();
+ omegaKey=omegaKey.slice(-10);
+ if(omegaKey.includes('omega')){
+   document.body.classList.add('omega');
+   let c=document.getElementById('omegaCard');
+   if(c) c.style.display='block';
+ }
+});
+document.querySelectorAll('.gallery img').forEach(img=>{
+ img.onclick=()=>{
+   document.getElementById('lightbox').style.display='flex';
+   document.getElementById('lightboxImg').src=img.src;
+ }
+});
+</script>
+                                                        </html>
+      
